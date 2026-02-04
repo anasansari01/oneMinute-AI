@@ -10,7 +10,7 @@ const Features = () => {
         </h2>
         <p className='text-xl text-zinc-500 font-light max-w-xl leading-relaxed'>
           Most AI supports tools hallucinate. Ours is strictly grounded in your 
-          conten, with a personality you control.
+          content, with a personality you control.
         </p>
       </div>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>

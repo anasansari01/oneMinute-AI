@@ -31,3 +31,16 @@ export const knowledge_source = pgTable("knowledge_source", {
   last_updated: text("last_updated").default(sql`now()`),
   created_at: text("created_at").default(sql`now()`),
 });
+
+export const sections = pgTable("sections", {
+  id: text("id").primaryKey().default(sql`gen_random_uuid()`),
+  user_email: text("user_email").notNull(), 
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  source_ids: text("source_ids").array().notNull(),
+  tone: text("tone").notNull(),
+  allowed_topics: text("allowed_topics"),
+  blocked_topics: text("blocked_topics"),
+  status: text("status").notNull().default("active"),
+  created_at: text("created_at").default(sql`now()`),
+})

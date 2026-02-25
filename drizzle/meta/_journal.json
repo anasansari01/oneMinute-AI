@@ -15,6 +15,20 @@
       "when": 1771834868926,
       "tag": "0001_panoramic_shiver_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772015323704,
+      "tag": "0002_fuzzy_lake",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1772015399834,
+      "tag": "0003_lumpy_amazoness",
+      "breakpoints": true
     }
   ]
 }

@@ -80,7 +80,7 @@ const KnowledgeTable = ({sources, onSourceClick, isLoading}: KnowledgeTableProps
             <TableHead className="text-xs uppercase font-medium text-zinc-500">
               Last Updated
             </TableHead>
-            <TableHead className="text-xs uppercase font-medium text-zinc-500">
+            <TableHead className="text-xs uppercase font-medium text-zinc-500 text-right">
               Actions
             </TableHead>
           </TableRow>

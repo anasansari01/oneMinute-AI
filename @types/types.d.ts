@@ -14,3 +14,38 @@ interface KnowledgeSource{
   last_updated: string | null;
   created_at: string | null;
 }
+
+type SectionsStatus = "active" | "draft" | "disabled";
+type Tone = "strict" | "neutral" | "friendly" | "empathetic";
+
+interface Section{
+  id:string;
+  name:string;
+  description: string;
+  sourceCount:number;
+  source_ids?: string[];
+  tone: Tone;
+  scopeLabel: string;
+  allowed_topics?: string;
+  blocked_topics?: string;
+  status: SectionsStatus;
+}
+
+interface SectionFormFieldProps {
+  formData: SectionFormData;
+  setFormData: (data: SectionFormData) => void;
+  selectedSources: string[],
+  setSelectedSources: (sources: string[]) => void;
+  knowledgeSources: KnowledgeSource[];
+  isLoadingSources: boolean;  
+  isDisabled: boolean;
+}
+
+interface SectionFormData{
+  name:string;
+  description: string;
+  tone: Tone;
+  allowedTopics: string;
+  blockedTopics: string;
+  fallbackBehavior: string;
+}

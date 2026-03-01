@@ -29,6 +29,13 @@
       "when": 1772015399834,
       "tag": "0003_lumpy_amazoness",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1772261050916,
+      "tag": "0004_aspiring_bloodaxe",
+      "breakpoints": true
     }
   ]
 }

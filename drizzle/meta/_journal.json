@@ -36,6 +36,27 @@
       "when": 1772261050916,
       "tag": "0004_aspiring_bloodaxe",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1772858519530,
+      "tag": "0005_woozy_jamie_braddock",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1772858570155,
+      "tag": "0006_safe_jackal",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1772858610418,
+      "tag": "0007_slow_tomas",
+      "breakpoints": true
     }
   ]
 }

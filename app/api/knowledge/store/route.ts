@@ -1,7 +1,7 @@
 import { db } from "@/db/client";
 import { knowledge_source } from "@/db/schema";
 import { isAuthorized } from "@/lib/isAuthorized";
-import { summarizeMarkdown } from "@/lib/openAI";
+import { summarizeMarkdown, summarizeMarkdownGroq } from "@/lib/openAI";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest){
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest){
         const lines = fileContent.split("\n").filter((line)=>line.trim());
         const headers = lines[0]?.split(",").map((h)=>h.trim());
 
-        const markdowm = await summarizeMarkdown(fileContent);
+        const markdowm = await summarizeMarkdownGroq(fileContent);
 
         await db.insert(knowledge_source).values({
           user_email: user.email,
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest){
         },{status: 502});
       }
 
-      const markdown = await summarizeMarkdown(html);
+      const markdown = await summarizeMarkdownGroq(html);
       
       await db.insert(knowledge_source).values({
         user_email: user.email,
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest){
       let content = body.content;
 
       if(body.content.length > 500){
-        content = await summarizeMarkdown(body.content);
+        content = await summarizeMarkdownGroq(body.content);
       }
 
       await db.insert(knowledge_source).values({

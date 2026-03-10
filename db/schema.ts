@@ -62,3 +62,29 @@ export const teamMembers = pgTable("teamMembers", {
   status: text("status").notNull().default("pending"),
   created_at: text("created_at").default(sql`now()`),
 });
+
+export const conversation = pgTable("conversation", {
+  id: text("id").primaryKey().default(sql`gen_random_uuid()`),
+  user_email: text("user_email"), 
+  name: text("name"),
+  visitor_ip: text("visitor_ip"),
+  chatbot_id: text("chatbot_id").notNull(),
+  created_at: text("created_at").default(sql`now()`),
+});
+
+export const messages = pgTable("messages", {
+  id: text("id").primaryKey().default(sql`gen_random_uuid()`),
+  conversation_id: text("conversation_id").notNull(),
+  role: text("role").notNull(),
+  content: text("content").notNull(),
+  created_at: text("created_at").default(sql`now()`),
+});
+
+export const widgets = pgTable("widgets", {
+  id: text("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  organization_id: text("organization_id").notNull(),
+  allowed_domains: text("allowed_domains").array(),
+  status: text("status").notNull().default("active"),
+  created_at: text("created_at").default(sql`now()`),
+});

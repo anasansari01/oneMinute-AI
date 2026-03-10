@@ -57,6 +57,13 @@
       "when": 1772858610418,
       "tag": "0007_slow_tomas",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1773125078240,
+      "tag": "0008_eminent_stick",
+      "breakpoints": true
     }
   ]
 }

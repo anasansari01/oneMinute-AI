@@ -1,3 +1,4 @@
+import Groq from "groq-sdk";
 import OpenAI from "openai";
 import https from "https";
 
@@ -11,6 +12,10 @@ const customFetch = (url: RequestInfo | URL, init?: RequestInit) => {
     agent: url.toString().startsWith("https") ? agent : undefined,
   } as any);
 };
+
+export const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -64,6 +69,52 @@ The result will be stored as long-term context for a chatbot.
   }
 }
 
+export async function summarizeMarkdownGroq(markdown: string) {
+  try {
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      temperature: 0.1,
+      max_completion_tokens: 900,
+      messages: [
+        {
+          role: "system",
+          content: `
+
+You are a data summarization engine for an AI chatbot.
+
+Your task:
+
+- Convert the input website markdown or text or csv files data into a CLEAN, DENSE SUMMARY for LLM context usage.
+
+STRICT RULES:
+
+- Output ONLY plain text (no markdown, no bullet points, no headings).
+- Write as ONE continuous paragraph.
+- Remove navigation, menus, buttons, CTAs, pricing tables, sponsors, ads, testimonials, community chats, UI labels, emojis, and decorative content.
+- Remove repetition and marketing language.
+- Keep ONLY factual, informational content that helps answer customer support questions.
+- Do NOT copy sentences verbatim unless absolutely necessary.
+- Compress aggressively while preserving meaning.
+- The final output MUST be under 2000 words.
+
+The result will be stored as long-term context for a chatbot.
+
+`,
+        },
+        {
+          role: "user",
+          content: markdown,
+        },
+      ],
+    });
+
+    return completion.choices[0].message.content?.trim() ?? "";
+  } catch (error) {
+    console.error("Error in summarizeMarkdown:", error);
+    throw error;
+  }
+}
+
 export async function summarizeConversation(messages: any[]) {
   try {
     const completion = await openai.chat.completions.create({
@@ -75,6 +126,29 @@ export async function summarizeConversation(messages: any[]) {
           role: "system",
           content:
             "Summarize the following conversation history into a concise paragraph, preserving key details and user intent.The final output MUST be under 2000 words.",
+        },
+        ...messages,
+      ],
+    });
+
+    return completion.choices[0].message.content?.trim() ?? "";
+  } catch (error) {
+    console.error("Error in summarizeConversation:", error);
+    throw error;
+  }
+}
+
+export async function summarizeConversationGroq(messages: any[]) {
+  try {
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      temperature: 0.3,
+      max_tokens: 500,
+      messages: [
+        {
+          role: "system",
+          content:
+            "Summarize the conversation into a concise paragraph preserving key details and user intent.",
         },
         ...messages,
       ],

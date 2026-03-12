@@ -29,7 +29,7 @@ export async function GET(req:NextRequest){
       if(ts) {
         const date = new Date(ts);
         const now = new Date();
-        const diffMs = now.getTime() - date.getDate();
+        const diffMs = now.getTime() - date.getTime();
         const diffMins = Math.floor(diffMs/60000);
         const diffHours = Math.floor(diffMins/60);
         if(diffMins<60) timeDisplay = `${diffMins}m ago`;

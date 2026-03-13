@@ -1,4 +1,5 @@
 import React from 'react'
+export const dynamic = 'force-dynamic'
 
 const EmbedPageLayout = ({children}: {children:React.ReactNode}) => {
   return (

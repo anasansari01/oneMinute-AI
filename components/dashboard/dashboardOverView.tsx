@@ -149,7 +149,7 @@ const DashboardOverView = () => {
                   <span className='text-xs text-zinc-500 font-medium'>Uploads</span>
                 </div>
                 <span className='text-2xl font-semibold text-white'>
-                  {knowledge?.uploads || 0}
+                  {knowledge?.upload || 0}
                 </span>
               </div>
             </CardContent>

@@ -36,46 +36,60 @@ const AddKnowledgeModal = ({isLoading, setIsOpen,defaultTab, setDefaultTab, onIm
 
   const handleImportWrapper = async ()=> {
     setError(null);
+
     const data:any = {type:defaultTab};
+
     if(defaultTab === "website"){
       if(!websiteUrl){
         setError("Please enter a website URL.");
         return;
       }
+
       if(!validateUrl(websiteUrl)){
-        setError("Please enter a valid URL (e.g. https://example.com");
+        setError("Please enter a valid URL (e.g. https://example.com)");
         return;
       }
+
       const normalizedInput = websiteUrl.replace(/\/$/,"");
+
       const exists = existingSources.some((source)=>{
         if(source.type !== "website" || !source.source_url) return false;
         const normalizedSource = source.source_url.replace(/\/$/,"");
         return normalizedInput === normalizedSource;
       });
+
       if(exists){
         setError("This website is already in your knowledge base.");
         return ;
       }
-      return data.url = websiteUrl;
-    }else if(defaultTab === "text"){
+
+      data.url = websiteUrl;
+    }
+
+    else if(defaultTab === "text"){
       if(!docsTitle.trim()){
         setError("Please enter a title.");
         return;
       }
+
       if(!docsContent.trim()){
         setError("Please provide content.");
         return;
       }
+
       data.title = docsTitle;
       data.content = docsContent;
-    }else if(defaultTab === "upload"){
+    }
+
+    else if(defaultTab === "upload"){
       if(!uploadedFile) {
         setError("Please select a file to upload");
         return;
       }
+
       data.file = uploadedFile;
-    } 
-    
+    }
+
     await onImport(data);
 
     setWebsiteUrl("");

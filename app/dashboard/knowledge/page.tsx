@@ -55,12 +55,12 @@ const page = () => {
 
       const res = await fetch("/api/knowledge/fetch");
       const newData = await res.json();
-      setKnowledgeSources(newData.source);
+      setKnowledgeSources(newData.sources);
       setIsAddOpen(false);
     } catch (error) {
       console.error(error);
     }finally{
-      setKnowledgeSourcesLoader(false);
+      setKnowledgeStoringLoader(false);
     }
   }
 

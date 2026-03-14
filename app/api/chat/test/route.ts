@@ -2,7 +2,7 @@ import { db } from "@/db/client";
 import { knowledge_source } from "@/db/schema";
 import { countConversationTokens } from "@/lib/countConversationTokens";
 import { isAuthorized } from "@/lib/isAuthorized";
-import { openai, summarizeConversation } from "@/lib/openAI";
+import { groq, openai, summarizeConversation, summarizeConversationGroq } from "@/lib/openAI";
 import { inArray } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -32,7 +32,8 @@ export async function POST(req: NextRequest){
     const olderMessages = messages.slice(0, -10);
 
     if(olderMessages > 0){
-      const summary = await summarizeConversation(olderMessages);
+      // const summary = await summarizeConversation(olderMessages);
+      const summary = await summarizeConversationGroq(olderMessages);
 
       context = `PREVIOUS CONVERSATION SUMMARY:\n${summary} \n\n` + context;
 
@@ -58,9 +59,20 @@ export async function POST(req: NextRequest){
       ${context}`;
 
     try {
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [{role: "system", content: systemPrompt}, ...messages],
+      // const completion = await openai.chat.completions.create({
+      //   model: "gpt-4o-mini",
+      //   messages: [{role: "system", content: systemPrompt}, ...messages],
+      //   temperature: 0.7,
+      //   max_tokens: 200,
+      // });
+      const cleanMessages = messages.map((m:any) => ({
+        role: m.role,
+        content: m.content
+      }));
+
+      const completion = await groq.chat.completions.create({
+        model: "llama-3.3-70b-versatile",
+        messages: [{role: "system", content: systemPrompt}, ...cleanMessages],
         temperature: 0.7,
         max_tokens: 200,
       });
@@ -69,7 +81,8 @@ export async function POST(req: NextRequest){
 
       return NextResponse.json({response: reply});
     } catch (error) {
-      console.error("OpenAI Error: ", error);
+      // console.error("OpenAI Error: ", error);
+      console.error("GroqAI Error: ", error);
       return NextResponse.json(
         {response: "An error occurred while processing your request."},
         {status: 500}

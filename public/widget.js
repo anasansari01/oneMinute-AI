@@ -1,6 +1,6 @@
 (function(){
   try {
-    var script = document.currentScript;
+    var script = document.currentScript || document.querySelector('script[src*="widget.js"]') || document.querySelector('script[data-id]') || document.querySelector(document.scripts.length - 1);
     if(!script) return;
 
     var widgetId = script.getAttribute("data-id");

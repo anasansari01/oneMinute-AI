@@ -86,7 +86,7 @@ const EmbedPage = () => {
 
     const fetchConfig = async () => {
       try {
-        const res = await fetch(`/api/widget/config?token=${token}`);
+        const res = await fetch(`/api/widget/config?token=${encodeURIComponent(token)}`);
         if(!res.ok) throw new Error("Failed to load widget configuration");
 
         const data = await res.json();

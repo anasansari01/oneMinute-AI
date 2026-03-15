@@ -4,7 +4,7 @@ import Script from 'next/script'
 const page = () => {
   return (
     <div>
-      <Script src="http://localhost:3000/widget.js" data-id="8813fc47-d931-4181-aa7e-6b62d125eb7e" defer></Script>
+      <Script src="http://localhost:3000/widget.js" data-id="9b5b27a6-5b1e-4fac-8b4f-b202a5cc7e31" defer></Script>
     </div>
   )
 }

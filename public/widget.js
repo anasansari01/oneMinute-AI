@@ -9,7 +9,7 @@
       return; 
     }
 
-    fetch("http://localhost:3000/api/widget/session", {
+    fetch("https://one-minute-ai.vercel.app/api/widget/session", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       credentials: "omit",
@@ -26,7 +26,7 @@
       }
 
       var iframe = document.createElement("iframe");
-      iframe.src = "http://localhost:3000/embed?token="+encodeURIComponent(data.token);
+      iframe.src = "https://one-minute-ai.vercel.app/embed?token="+encodeURIComponent(data.token);
 
       iframe.setAttribute("title", "Support Chat");
       iframe.style.position = "fixed";

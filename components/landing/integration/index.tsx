@@ -56,13 +56,13 @@ const Integration = () => {
               <div className='pl-4'>
                 <span className='text-indigo-400'>src</span>=
                 <span className='text-emerald-400'>
-                  &quot;https://oneminutesupport.com/init.js&quot;
+                  &quot;https://one-minute-ai.vercel.app/widget.js&quot;
                 </span>
               </div>
               <div className='pl-4'>
                 <span className='text-indigo-400'>data-id</span>=
                 <span className='text-emerald-400'>
-                  &quot;b78848-18ca-479b-baf6-c6b1298e309a5&quot;
+                  &quot;9b5b27a6-5b1e-4fac-8b4f-b202a5cc7e31&quot;
                 </span>
                 <br />
                 <span className='text-indigo-400'>defer&gt;</span>

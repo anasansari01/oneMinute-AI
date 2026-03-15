@@ -300,7 +300,7 @@ const DashboardOverView = () => {
 
                 <div className="bg-[#050509] border border-white/10 rounded-lg p-3 overflow-hidden">
                   <code className='text-[10px] text-zinc-400 font-mono block whitespace-pre overflow-hidden'>
-                  {`<script src="http://localhost:3000/widget.js"\n data-id="${data?.botId || "..."}"\n defer>\n</script>`}
+                  {`<script src="${origin}/widget.js"\n data-id="${data?.botId || "..."}"\n defer>\n</script>`}
                   </code>
                 </div>
 

@@ -9,7 +9,7 @@ const EmbedCodeConfig = ({ chatbotId }: { chatbotId: string | undefined }) => {
   const handleCopyCode = () => {
     if (!chatbotId) return;
 
-    const code = `<script src="http://localhost:3000/widget.js" data-id="${chatbotId}" defer></script>`;
+    const code = `<script src="https://one-minute-ai.vercel.app/widget.js" data-id="${chatbotId}" defer></script>`;
 
     navigator.clipboard.writeText(code);
     setCopied(true);
@@ -30,7 +30,7 @@ const EmbedCodeConfig = ({ chatbotId }: { chatbotId: string | undefined }) => {
         <div className="relative group">
           <div className="bg-[#050509] border border-white/10 rounded-lg p-3 overflow-hidden">
             <code className='text-[10px] text-zinc-400 font-mono block whitespace-pre overflow-hidden'>
-            {`<script src="http://localhost:3000/widget.js"\n data-id="${chatbotId || "..."}"\n defer>\n</script>`}
+            {`<script src="https://one-minute-ai.vercel.app/widget.js"\n data-id="${chatbotId || "..."}"\n defer>\n</script>`}
             </code>
           </div>
           <Button

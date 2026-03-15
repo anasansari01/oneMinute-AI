@@ -3,7 +3,7 @@ import { conversation, knowledge_source } from "@/db/schema";
 import { messages as messagesTable } from "@/db/schema";
 import { countConversationTokens } from "@/lib/countConversationTokens";
 import { groq, openai, summarizeConversation, summarizeConversationGroq } from "@/lib/openAI";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { jwtVerify } from "jose";
 import { NextResponse } from "next/server";
 
@@ -47,7 +47,7 @@ export async function POST(req: Request){
 
     if(!existingConv){
       const forwardedFor = req.headers.get("x-forwarded-for");
-      const ip = req.headers.get("x-forwarded-for")?.split(",")[0] ||
+      const ip = forwardedFor?.split(",")[0] ||
         req.headers.get("x-real-ip") ||
         "Unknown IP";
       const visitorName = `#Visitor(${ip})`;
@@ -57,7 +57,7 @@ export async function POST(req: Request){
         chatbot_id: widgetId,
         visitor_ip: ip,
         name: visitorName,
-      });
+      }).onConflictDoNothing();
 
       const previousMessages = messages.slice(0, -1);
       if(previousMessages.length > 0){
@@ -86,7 +86,7 @@ export async function POST(req: Request){
   let context = "";
   if(knowledge_source_ids && knowledge_source_ids.length > 0){
     try {
-      const sources = await db.select({content: knowledge_source.content}).from(knowledge_source).where(eq(knowledge_source.id, knowledge_source_ids));
+      const sources = await db.select({content: knowledge_source.content}).from(knowledge_source).where(inArray(knowledge_source.id, knowledge_source_ids));
 
       context = sources.map((s)=>s.content).filter(Boolean).join("\n\n");
     } catch (error) {

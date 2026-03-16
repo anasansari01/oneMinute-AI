@@ -175,13 +175,15 @@ const EmbedPage = () => {
 
   if(!isOpen){
     return(
-      <button
-      onClick={toggleOpen}
-      className='w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:brightness-110 transition-all text-white'
-      style={{backgroundColor: primaryColor}}
-      >
-        <MessageCircle className='w-8 h-8'/>
-      </button>
+      <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
+        <button
+          onClick={toggleOpen}
+          className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:brightness-110 transition-all text-white cursor-pointer pointer-events-auto"
+          style={{ backgroundColor: primaryColor }}
+        >
+          <MessageCircle className="w-8 h-8" />
+        </button>
+      </div>
     )
   }
 
